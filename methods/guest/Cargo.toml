@@ -1,0 +1,20 @@
+[package]
+name = "guests"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "spxVrfy"
+path = "src/bin/spxVrfy.rs"
+
+[workspace]
+
+[dependencies]
+alloy-primitives = { version = "0.8", default-features = false, features = ["rlp", "serde", "std"] }
+alloy-sol-types = { version = "0.8" }
+risc0-zkvm = { version = "2.0.0", default-features = false, features = ['std'] }
+spx_sm3 = {path = "src/lib/spx_module", features = ["sm3", "s128", "simple"]}
+hex = "0.4"
+
+[profile.release]
+lto = "thin"
