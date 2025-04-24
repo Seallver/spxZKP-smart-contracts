@@ -14,7 +14,10 @@ tests/Elf.sol
 
 # Cargo
 target/
+target/riscv-guest/
+target/debug/
 
 # Misc
 .DS_Store
 .idea
+
