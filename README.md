@@ -1,205 +1,104 @@
-# RISC Zero Foundry Template
+# SPX 验证算法的 ZKP 生成及其在智能合约上的应用
 
-> Prove computation with the [RISC Zero zkVM][docs-zkvm] and verify the results in your Ethereum contract.
+## 项目概述
 
-This repository implements an example application on Ethereum utilizing RISC Zero as a [coprocessor][blog-coprocessor] to the smart contract application.
-It provides a starting point for building powerful new applications on Ethereum that offload work that is computationally intensive (i.e. gas expensive), or difficult to implement in Solidity (e.g. ed25519 signature verification, or HTML parsing).
+本项目整合了 [SPX-TSS](https://github.com/Seallver/SphincsplusSM3-TSS) 和 [SPX-ZKP](https://github.com/Seallver/spxZKP) 两个核心组件，基于 [RISC Zero zkVM](https://github.com/risc0/risc0-foundry-template) 框架，构建了一套完整的 SPX 签名验证零知识证明方案，并实现了智能合约端的链上验证功能。
 
-<!-- TODO(#100) Integrate support for Steel more directly into this repo -->
-Integrate with [Steel][steel-repo] to execute view calls and simulate transactions on Ethereum. Check out the [ERC-20 counter][erc20-counter] demo to see an example.
+## 核心组件
 
-## Overview
+| 组件 | 功能描述 | 项目链接 |
+|------|----------|----------|
+| **SPX-TSS** | 基于 SM3 的 SPHINCS+ 门限签名方案实现 | [GitHub](https://github.com/Seallver/SphincsplusSM3-TSS) |
+| **SPX-ZKP** | SPX 签名验证的零知识证明电路实现 | [GitHub](https://github.com/Seallver/spxZKP) |
+| **RISC Zero zkVM** | 零知识证明虚拟机执行环境 | [GitHub](https://github.com/risc0/risc0-foundry-template) |
 
-Here is a simplified overview of how devs can integrate RISC Zero, including with [Bonsai][docs-bonsai] proving, into their Ethereum smart contracts:
+## 技术亮点
 
-![RISC Zero Foundry Template Diagram](images/risc0-foundry-template.png)
+- **后量子安全**：基于 SPHINCS+ 签名方案，抵抗量子计算攻击
+- **零知识验证**：将复杂的签名验证计算转移到链下 zkVM 执行
+- **高效链上验证**：智能合约仅需验证简洁的零知识证明
 
-1. Run your application logic in the [RISC Zero zkVM][docs-zkvm]. The provided [publisher](./apps) app sends an off-chain proof request to the [Bonsai] proving service.
-2. [Bonsai][docs-bonsai] generates the program result, written to the [journal][term-journal], and a SNARK proof of its correctness.
-3. The [publisher](./apps) app submits this proof and journal on-chain to your app contract for validation.
-4. Your app contract calls the [RISC Zero Verifier][docs-verifier] to validate the proof. If the verification is successful, the journal is deemed trustworthy and can be safely used.
+## 使用示例
 
-## Dependencies
+接下来是对项目构建和测试以及测试网下合约部署的使用示例，详细
+使用方法可以参考RISC-Zero的使用说明：[项目介绍](./RISC%20Zero%20Foundry%20Template.md)、[合约部署](./deployment-guide.md)
 
-First, [install Rust][install-rust] and [Foundry][install-foundry], and then restart your terminal.
-
-```sh
-# Install Rust
-curl https://sh.rustup.rs -sSf | sh
-# Install Foundry
-curl -L https://foundry.paradigm.xyz | bash
-```
-
-Next, you will use `rzup` to install `cargo-risczero`.
-
-To install `rzup`, run the following command and follow the instructions:
-
-```sh
-curl -L https://risczero.com/install | bash
-```
-
-Next we can install the RISC Zero toolchain by running `rzup`:
-
-```sh
-rzup install
-```
-
-You can verify the installation was successful by running:
-
-```sh
-cargo risczero --version
-```
-
-Now you have all the tools you need to develop and deploy an application with [RISC Zero][homepage-risczero].
-
-## Quick Start
-
-First, install the RISC Zero toolchain using the [instructions above](#dependencies).
-
-Now, you can initialize a new RISC Zero project at a location of your choosing:
-
-```sh
-forge init -t risc0/risc0-foundry-template ./my-project
-```
-
-Congratulations! You've just started your first RISC Zero project.
-
-Your new project consists of:
-
-- a [zkVM program](./methods) (written in Rust), which specifies a computation that will be proven;
-- a [app contract](./contracts) (written in Solidity), which uses the proven results;
-- a [publisher](./apps) which makes proving requests to [Bonsai][docs-bonsai] and posts the proof to Ethereum.
-  We provide an example implementation, but your dApp interface or application servers could act as the publisher.
-
-### Build the Code
-
-- Update git submodules.
-
-  ```sh
-  git submodule update --init
-  ```
-
-- Builds for zkVM program, the publisher app, and any other Rust code.
-
-  ```sh
-  cargo build
-  ```
-
-- Build your Solidity smart contracts.
-
-  > NOTE: `cargo build` needs to run first to generate the `ImageID.sol` contract.
-
-  ```sh
-  forge build
-  ```
-
-### Run the Tests
-
-- Tests your zkVM program.
-
-  ```sh
-  cargo test
-  ```
-
-- Test your Solidity contracts, integrated with your zkVM program.
-
-  ```sh
-  RISC0_DEV_MODE=true forge test -vvv 
-  ```
-
-- Run the same tests, with the full zkVM prover rather than dev-mode, by setting `RISC0_DEV_MODE=false`.
-
-  ```sh
-  RISC0_DEV_MODE=false forge test -vvv
-  ```
-
-  Producing the [Groth16 SNARK proofs][groth16] for this test requires running on an x86 machine with [Docker][install-docker] installed, or using [Bonsai](#configuring-bonsai).
-  Apple silicon is currently unsupported for local proving, you can find out more info in the relevant issues [here](https://github.com/risc0/risc0/issues/1520) and [here](https://github.com/risc0/risc0/issues/1749).
-
-## Develop Your Application
-
-To build your application using the RISC Zero Foundry Template, you’ll need to make changes in three main areas:
-
-- ***Guest Code***: Write the code you want proven in the [methods/guest](./methods/guest/) folder. This code runs off-chain within the RISC Zero zkVM and performs the actual computations. For example, the provided template includes a computation to check if a given number is even and generate a proof of this computation.
-- ***Smart Contracts***: Write the on-chain part of your project in the [contracts](./contracts/) folder. The smart contract verifies zkVM proofs and updates the blockchain state based on the results of off-chain computations. For instance, in the [EvenNumber](./contracts/EvenNumber.sol) example, the smart contract verifies a proof that a number is even and stores that number on-chain if the proof is valid.
-- ***Publisher Application***: Adjust the publisher example in the [apps](./apps) folder. The publisher application bridges off-chain computation with on-chain verification by submitting proof requests, receiving proofs, and publishing them to the smart contract on Ethereum.
-
-### Configuring Bonsai
-
-***Note:*** *To request an API key [complete the form here](https://bonsai.xyz/apply).*
-
-With the Bonsai proving service, you can produce a [Groth16 SNARK proof][Groth16] that is verifiable on-chain.
-You can get started by setting the following environment variables with your API key and associated URL.
-
+### 1. 项目构建
 ```bash
-export BONSAI_API_KEY="YOUR_API_KEY" # see form linked above
-export BONSAI_API_URL="BONSAI_URL" # provided with your api key
+git clone https://github.com/Seallver/spxZKP-smart-contracts.git
+cd spxZKP-smart-contracts
+cargo build
+forge build
 ```
 
-Now if you run `forge test` with `RISC0_DEV_MODE=false`, the test will run as before, but will additionally use the fully verifying `RiscZeroGroth16Verifier` contract instead of `MockRiscZeroVerifier` and will request a SNARK receipt from Bonsai.
+### 2. 链下测试
+```bash
+cargo test
+```
 
+### 3. dev模式下合约测试
+此模式下的测试不会真正生成ZKP，来节约测试时间
+```bash
+RISC0_DEV_MODE=true forge test -vvv
+```
+
+### 4. 生产模式下合约测试
+在生产模式下ZKP的生成需要依赖Bonsai或Docker
+
+Bonsai需要申请API key，详细测试方法见[原框架的README](./RISC%20Zero%20Foundry%20Template.md)
 ```bash
 RISC0_DEV_MODE=false forge test -vvv
 ```
 
-### Deterministic Builds
+### 5. 本地测试网anvil下合约部署
 
-By setting the environment variable `RISC0_USE_DOCKER` a containerized build process via Docker will ensure that all builds of your guest code, regardless of the machine or local environment, will produce the same [image ID][image-id].
-The [image ID][image-id], and its importance to security, is explained in more detail in our [developer FAQ][faq].
-
+#### 先启用一个终端开启测试网anvil
 ```bash
-RISC0_USE_DOCKER=1 cargo build
+anvil
+```
+从中能获取测试网下的一组account，以及RPC和链ID等信息
+
+#### 切换另一个终端进行如下操作：
+
+选择一个account，设置钱包私钥
+```bash
+export ETH_WALLET_PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+# 以第一个account为例
+```
+构建项目
+```bash
+cargo build
+```
+部署合约到链上
+```bash
+forge script --rpc-url http://localhost:8545 --broadcast script/Deploy.s.sol
+```
+得到合约部署的地址后执行
+```bash
+export SPX_VRFY_ADDRESS=#COPY SpxVrfy ADDRESS FROM DEPLOY LOGS
+```
+#### 与合约交互
+call isValidZKProof，检查验证初始状态
+```bash
+cast call --rpc-url http://localhost:8545 ${SPX_VRFY_ADDRESS:?} 'get()(bool)'
 ```
 
-> ***Note:*** *This requires having Docker installed and in your PATH. To install Docker see [Get Docker][install-docker].*
-
-## Deploy Your Application
-
-When you're ready, follow the [deployment guide](./deployment-guide.md) to get your application running on [Sepolia][sepolia] or Ethereum Mainnet.
-
-## Project Structure
-
-Below are the primary files in the project directory
-
-```text
-.
-├── Cargo.toml                      // Configuration for Cargo and Rust
-├── foundry.toml                    // Configuration for Foundry
-├── apps
-│   ├── Cargo.toml
-│   └── src
-│       └── lib.rs                  // Utility functions
-│       └── bin                     
-│           └── publisher.rs        // Example app to publish program results into your app contract 
-├── contracts
-│   ├── EvenNumber.sol              // Basic example contract for you to modify
-│   └── ImageID.sol                 // Generated contract with the image ID for your zkVM program
-├── methods
-│   ├── Cargo.toml
-│   ├── guest
-│   │   ├── Cargo.toml
-│   │   └── src
-│   │       └── bin                 // You can add additional guest programs to this folder
-│   │           └── is_even.rs      // Example guest program for checking if a number is even
-│   └── src
-│       └── lib.rs                  // Compiled image IDs and tests for your guest programs
-└── tests
-    ├── EvenNumber.t.sol            // Tests for the basic example contract
-    └── Elf.sol                     // Generated contract with paths the guest program ELF files.
+接下来生成ZKP并上传，在合约上会对ZKP验证，若通过会更新状态
+```bash
+cargo run --bin publisher -- \
+    --chain-id=31337 \
+    --rpc-url=http://localhost:8545 \
+    --contract=${SPX_VRFY_ADDRESS:?} \
+    --sig=./sig.json
 ```
 
-[docs-bonsai]: https://dev.risczero.com/api/generating-proofs/remote-proving
-[install-foundry]: https://getfoundry.sh/
-[install-docker]: https://docs.docker.com/get-docker/
-[groth16]: https://www.risczero.com/news/on-chain-verification
-[docs-verifier]: https://dev.risczero.com/api/blockchain-integration/contracts/verifier
-[docs-zkvm]: https://dev.risczero.com/zkvm
-[homepage-risczero]: https://www.risczero.com/
-[Sepolia]: https://www.alchemy.com/overviews/sepolia-testnet
-[blog-coprocessor]: https://www.risczero.com/news/a-guide-to-zk-coprocessors-for-scalability
-[faq]: https://dev.risczero.com/faq#zkvm-application-design
-[image-id]: https://dev.risczero.com/terminology#image-id
-[install-rust]: https://doc.rust-lang.org/cargo/getting-started/installation.html
-[term-journal]: https://dev.risczero.com/terminology#journal
-[steel-repo]: https://github.com/risc0/risc0-ethereum/tree/main/crates/steel
-[erc20-counter]: https://github.com/risc0/risc0-ethereum/tree/main/examples/erc20-counter
+再次检查验证状态，若ZKP验证通过，这里会显示true
+```bash
+cast call --rpc-url http://localhost:8545 ${SPX_VRFY_ADDRESS:?} 'get()(bool)'
+```
+
+### 6. 注意事项
+
+- 本项目只针对 f128 参数集和 simple 结构下的基于 SM3 的 SPX 签名进行了实现
+- 测试和合约部署均需要签名和公钥，在项目里提供了一组[sig.json](./sig.json)，可以在[SPX TSS](https://github.com/Seallver/SphincsplusSM3-TSS)里生成
+- 测试均需要准备docker或者Bonsai api
