@@ -59,7 +59,7 @@ You can deploy your contracts and run an end-to-end test or demo as follows:
     Save the `SpxVrfy` contract address to an env variable:
 
     ```bash
-    export SPX_VRFY_ADDRESS=#COPY EVEN NUMBER ADDRESS FROM DEPLOY LOGS
+    export SPX_VRFY_ADDRESS=#COPY SpxVrfy ADDRESS FROM DEPLOY LOGS
     ```
 
     > You can also use the following command to set the contract address if you have [`jq`][jq] installed:
