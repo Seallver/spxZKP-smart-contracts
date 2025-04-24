@@ -47,7 +47,7 @@ RISC0_DEV_MODE=true forge test -vvv
 
 Bonsai需要申请API key，详细测试方法见[原框架的README](./RISC%20Zero%20Foundry%20Template.md)
 ```bash
-RISC0_DEV_MODE=true forge test -vvv
+RISC0_DEV_MODE=false forge test -vvv
 ```
 
 ### 5. 本地测试网anvil下合约部署
