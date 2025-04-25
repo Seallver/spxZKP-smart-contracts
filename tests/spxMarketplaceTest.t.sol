@@ -49,16 +49,15 @@ contract spxMarketplaceTest is Test {
         nft.setApprovalForAll(address(marketplace), true);
         vm.stopPrank();
 
-
         uint256 initialSellerBalance = coin.balanceOf(user);
         uint256 initialBuyerBalance = coin.balanceOf(buyer);
 
         // 买家批准市场合约转移代币，准备购买NFT0
         vm.startPrank(buyer);
-        coin.approve(address(marketplace), PRICE); 
+        coin.approve(address(marketplace), PRICE);
         marketplace.buyNFT(0, sig);
         vm.stopPrank();
-        
+
         // 检查买家是否已获得 NFT0
         assertEq(nft.ownerOf(0), buyer, "Buyer should own the NFT");
 

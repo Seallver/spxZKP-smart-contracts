@@ -19,5 +19,5 @@
 pragma solidity ^0.8.20;
 
 library ImageID {
-    bytes32 public constant SPXVRFY_ID = bytes32(0x36f67a7adfde9a6f646d67191d4b88fc9c97e7366e8eb3da392c6893a13b5d02);
+    bytes32 public constant SPXVRFY_ID = bytes32(0xce7fda9110ccd7ae70027bd5bdb1a39e9b8e1acc83eabf1b5123ee8bf9dac58d);
 }

@@ -20,5 +20,5 @@ pragma solidity ^0.8.20;
 
 library Elf {
     string public constant SPXVRFY_PATH =
-        "/home/seallver22/HBS/spxZKP-smart-contracts/target/riscv-guest/methods/guests/riscv32im-risc0-zkvm-elf/release/spxVrfy.bin";
+        "/home/lxc/web3/wallet/spxZKP-smart-contracts/target/riscv-guest/methods/guests/riscv32im-risc0-zkvm-elf/release/spxVrfy.bin";
 }
