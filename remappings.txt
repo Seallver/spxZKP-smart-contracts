@@ -2,3 +2,4 @@ forge-std/=lib/risc0-ethereum/lib/forge-std/src/
 @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts
 risc0/=lib/risc0-ethereum/contracts/src/
 openzeppelin/=lib/openzeppelin-contracts/
+@chainlink-brownie-contracts/=lib/chainlink-brownie-contracts
