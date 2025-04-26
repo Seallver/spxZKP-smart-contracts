@@ -18,11 +18,18 @@ contract WLCEngine is ReentrancyGuard {
     error WLCEngine__NeedsMoreThanZero();
     error WLCEngine__TokenNotAllowed(address token);
     error WLCEngine__TransferFailed();
+    error WLCEngine__BreaksHealthFactor(uint256 healthFactor);
     
     mapping(address token => address priceFeed) private s_priceFeeds;
     StableCoinMinter private immutable i_wlc;
     mapping(address user => mapping(address token => uint256 amount)) private s_collateralDeposited;
     mapping(address user => uint256 amountWlcMinted) private s_wlcMinted;
+
+    uint256 private constant ADDITIONAL_FEED_PRECISION = 1e10;
+    uint256 private constant PRECISION = 1e18;
+    uint256 private constant LIQUIDATION_THRESHOLD = 50;
+    uint256 private constant LIQUIDATION_PRECISION = 100;
+    uint256 private constant MIN_HEALTH_FACTOR = 1e18;
 
     address[] private s_collateralTokens;
 
@@ -40,13 +47,13 @@ contract WLCEngine is ReentrancyGuard {
 
   
 
-    constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address dscAddress) {
+    constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address WlcAddress) {
         if (tokenAddresses.length != priceFeedAddresses.length) revert WLCEngine__TokenAddressesAndPriceFeedAddressesAmountsDontMatch();
         for (uint256 i = 0; i < tokenAddresses.length; i++) {
             s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i];
             s_collateralTokens.push(tokenAddresses[i]);
         }
-        i_wlc = StableCoinMinter(dscAddress);
+        i_wlc = StableCoinMinter(WlcAddress);
     }
 
       /*
@@ -70,20 +77,26 @@ contract WLCEngine is ReentrancyGuard {
         s_wlcMinted[msg.sender] += amountofWlcMint;
     }
 
+/*
+    An example calculate the health factor is learning from cyfrin
+    应该探索更多方案...
+*/
+
 
     function _healthFactor(address user) private view returns (uint256) {
         (uint256 totalWlcMinted, uint256 collateralValueInUsd) = _getAccountInformation(user);
-        // 计算健康因子的逻辑，这里需要补充
-        return 0; // 临时返回值，需要修改为实际计算结果
+        uint256 collateralAdjustedForThreshold = (collateralValueInUsd * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
+        return (collateralAdjustedForThreshold * PRECISION) / totalWlcMinted;
     }
 
     function _getAccountInformation(address user) private view returns(uint256 totalWlcMinted, uint256 collateralValueInUsd){
-        totalWlcMinted = s_wlcMinted[user]; // 修正变量名拼写错误
+        totalWlcMinted = s_wlcMinted[user]; 
         collateralValueInUsd = getAccountCollaterValue(user);
+
     }
 
     function getAccountCollaterValue(address user) public view returns(uint256) {
-        uint256 totalCollateralValueInUsd = 0; // 声明并初始化变量
+        uint256 totalCollateralValueInUsd = 0; 
         for(uint256 i = 0; i < s_collateralTokens.length; i++){
             address token = s_collateralTokens[i];
             uint256 amount = s_collateralDeposited[user][token];
@@ -92,6 +105,12 @@ contract WLCEngine is ReentrancyGuard {
         return totalCollateralValueInUsd;
     }
 
+    function _revertIfHealthFactorIsBroken(address user) internal view {
+    uint256 userHealthFactor = _healthFactor(user);
+    if(userHealthFactor < MIN_HEALTH_FACTOR){
+        revert WLCEngine__BreaksHealthFactor(userHealthFactor);
+    }
+}
     /*
         @notice: This function is checking the real-time price of the collateral token.
         实时检测价格
