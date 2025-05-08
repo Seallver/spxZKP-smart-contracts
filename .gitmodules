@@ -8,3 +8,6 @@
 [submodule "lib/chainlink-brownie-contracts"]
 	path = lib/chainlink-brownie-contracts
 	url = https://github.com/smartcontractkit/chainlink-brownie-contracts
+[submodule "apps/wallet"]
+	path = apps/wallet
+	url = https://github.com/LIXINGCHEN-CPP/MutipleWallet_frontend.git
