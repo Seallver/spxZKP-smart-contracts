@@ -10,7 +10,7 @@ contract StableCoinMinter is Ownable, ERC20Burnable {
     error StableCoinMinter__BurnAmountExceedsBalance();
     error StableCoinMinter__NotZeroAddress();
 
-    constructor(address initialOwner) ERC20("WalletCoin", "WLC") Ownable(initialOwner) {}
+    constructor() ERC20("WalletCoin", "WLC") Ownable(msg.sender) {}
 
     function burn(uint256 _amount) public override onlyOwner {
         uint256 balance = balanceOf(msg.sender);

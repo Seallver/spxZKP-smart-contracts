@@ -21,3 +21,69 @@ target/debug/
 .DS_Store
 .idea
 
+#nextjs
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+apps/web3-wallet/node_modules/
+apps/web3-wallet/web3_wallet/node_modules/
+
+# testing
+apps/web3-wallet/web3_wallet/coverage
+
+# next.js
+apps/web3-wallet/web3_wallet/.next/
+apps/web3-wallet/web3_wallet/out/
+
+# production
+apps/web3-wallet/web3_wallet/build
+
+# misc
+apps/web3-wallet/web3_wallet/.DS_Store
+apps/web3-wallet/web3_wallet/*.pem
+
+# debug
+apps/web3-wallet/web3_wallet/npm-debug.log*
+apps/web3-wallet/web3_wallet/yarn-debug.log*
+apps/web3-wallet/web3_wallet/yarn-error.log*
+apps/web3-wallet/web3_wallet/.pnpm-debug.log*
+
+# local env files
+apps/web3-wallet/web3_wallet/.env.local
+apps/web3-wallet/web3_wallet/.env.development.local
+apps/web3-wallet/web3_wallet/.env.test.local
+apps/web3-wallet/web3_wallet/.env.production.local
+
+# vercel
+apps/web3-wallet/web3_wallet/.vercel
+
+# typescript
+apps/web3-wallet/web3_wallet/*.tsbuildinfo
+
+# 忽略 apps/web3-wallet/web3_wallet 下的 .pnp、.pnp.js、.next、out、build 等
+apps/web3-wallet/web3_wallet/.pnp
+apps/web3-wallet/web3_wallet/.pnp.js
+apps/web3-wallet/web3_wallet/coverage
+apps/web3-wallet/web3_wallet/.next/
+apps/web3-wallet/web3_wallet/out/
+apps/web3-wallet/web3_wallet/build
+apps/web3-wallet/web3_wallet/.DS_Store
+apps/web3-wallet/web3_wallet/*.pem
+apps/web3-wallet/web3_wallet/npm-debug.log*
+apps/web3-wallet/web3_wallet/yarn-debug.log*
+apps/web3-wallet/web3_wallet/yarn-error.log*
+apps/web3-wallet/web3_wallet/.pnpm-debug.log*
+apps/web3-wallet/web3_wallet/.env.local
+apps/web3-wallet/web3_wallet/.env.development.local
+apps/web3-wallet/web3_wallet/.env.test.local
+apps/web3-wallet/web3_wallet/.env.production.local
+apps/web3-wallet/web3_wallet/.vercel
+apps/web3-wallet/web3_wallet/*.tsbuildinfo
+apps/web3-wallet/web3_wallet/.env
+
+
+node_modules
+node_modules
+
+
+CONTRACT_SUMMARY.md
