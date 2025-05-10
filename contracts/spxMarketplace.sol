@@ -3,7 +3,11 @@ pragma solidity ^0.8.0;
 
 import "./spxCoin.sol";
 import "./spxNFT.sol";
-import "openzeppelin-contracts/contracts/access/Ownable.sol";
+<<<<<<< HEAD
+import "@openzeppelin/contracts/access/Ownable.sol";
+=======
+import "@openzeppelin/contracts/access/Ownable.sol";
+>>>>>>> 5b8c8a998e2fb0a9caf872f60cda98c688b7e9c6
 
 // spxMarketplace 是一个简单的 NFT 市场合约
 contract spxMarketplace is Ownable {

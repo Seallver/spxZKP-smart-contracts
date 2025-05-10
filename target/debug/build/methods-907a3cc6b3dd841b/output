@@ -1,18 +1,12 @@
 cargo:rerun-if-changed=.gitmodules
 cargo:rerun-if-changed=.gitmodules
+cargo:warning=git submodule not initialized: lib/openzeppelin-contracts
+cargo:warning=to initialize missing submodules, run: git submodule update --init
 cargo:rerun-if-env-changed=RISC0_USE_DOCKER
 cargo:rerun-if-changed=build.rs
 cargo:rerun-if-env-changed=RISC0_BUILD_DEBUG
 Building guest package: methods.guests
 cargo:rerun-if-env-changed=RISC0_SKIP_BUILD
-Using Rust toolchain version 1.85.0
-Using rustc: /home/seallver22/.risc0/toolchains/v1.85.0-rust-x86_64-unknown-linux-gnu/bin/rustc
-cargo:rerun-if-env-changed=RISC0_BUILD_LOCKED
-cargo:rerun-if-env-changed=RISC0_RUST_SRC
-cargo:rerun-if-env-changed=CC_riscv32im_risc0_zkvm_elf
-cargo:rerun-if-env-changed=CFLAGS_riscv32im_risc0_zkvm_elf
-Using C++ toolchain version 2024.1.5
-cargo:rerun-if-env-changed=RISC0_BUILD_DEBUG
 cargo:rerun-if-env-changed=RISC0_SKIP_BUILD
 cargo:rerun-if-env-changed=RISC0_SKIP_BUILD
 cargo:rerun-if-changed=/home/seallver22/HBS/spxZKP-smart-contracts/target/debug/build/methods-907a3cc6b3dd841b/out/methods.rs
