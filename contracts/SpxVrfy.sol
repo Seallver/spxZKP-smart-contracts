@@ -45,7 +45,6 @@ contract SpxVrfy {
         check = 0; // 初始化为 0
     }
 
-    /// @notice Set the even number stored on the contract. Requires a RISC Zero proof that the number is even.
     function set(bytes calldata seal) public {
         // journal 只需要匹配 guest 中 commit 的 bool 值（true/false）
         bytes memory journal = abi.encode(true); // guest commit 的是 `true` 当且仅当验签成功

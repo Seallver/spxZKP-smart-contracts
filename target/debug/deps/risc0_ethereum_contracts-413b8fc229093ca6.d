@@ -1,0 +1,10 @@
+/home/seallver22/HBS/spxZKP-smart-contracts/target/debug/deps/librisc0_ethereum_contracts-413b8fc229093ca6.rmeta: /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/lib.rs /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/groth16.rs /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroVerifier.sol /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroSetVerifier.sol
+
+/home/seallver22/HBS/spxZKP-smart-contracts/target/debug/deps/librisc0_ethereum_contracts-413b8fc229093ca6.rlib: /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/lib.rs /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/groth16.rs /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroVerifier.sol /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroSetVerifier.sol
+
+/home/seallver22/HBS/spxZKP-smart-contracts/target/debug/deps/risc0_ethereum_contracts-413b8fc229093ca6.d: /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/lib.rs /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/groth16.rs /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroVerifier.sol /home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroSetVerifier.sol
+
+/home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/lib.rs:
+/home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/groth16.rs:
+/home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroVerifier.sol:
+/home/seallver22/.cargo/git/checkouts/risc0-ethereum-52dc67828f171e85/38591d7/contracts/src/IRiscZeroSetVerifier.sol:

@@ -5,7 +5,6 @@ import "./spxCoin.sol";
 import "./spxNFT.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 
-
 // spxMarketplace 是一个简单的 NFT 市场合约
 contract spxMarketplace is Ownable {
     spxCoin public coin;
@@ -75,13 +74,10 @@ contract spxMarketplace is Ownable {
 
     // 获取签名验证结果
     function getSignatureResult(bytes memory sig) public view returns (bool) {
-        if(sig.length == 0) {
+        if (sig.length == 0) {
             return false;
         }
         bytes memory pubkeyres = tssPublicKey;
         return keccak256(abi.encodePacked(pubkeyres)) == keccak256(abi.encodePacked(tssPublicKey));
     }
-
-
-
 }

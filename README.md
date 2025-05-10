@@ -47,7 +47,7 @@ RISC0_DEV_MODE=true forge test -vvv
 
 Bonsai需要申请API key，详细测试方法见[原框架的README](./RISC%20Zero%20Foundry%20Template.md)
 ```bash
-RISC0_DEV_MODE=true forge test -vvv
+RISC0_DEV_MODE=false forge test -vvv
 ```
 
 ### 5. 本地测试网anvil下合约部署
@@ -62,7 +62,7 @@ anvil
 
 选择一个account，设置钱包私钥
 ```bash
-export ETH_WALLET_PRIVATE_KEY = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+export ETH_WALLET_PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 # 以第一个account为例
 ```
 构建项目

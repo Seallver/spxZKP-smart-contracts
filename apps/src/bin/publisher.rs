@@ -109,7 +109,10 @@ fn main() -> Result<()> {
 
     // // Encode the seal with the selector.
     let seal = encode_seal(&receipt.receipt)?;
-
+    
+    println!("Seal size: {} bytes", seal.len());
+    println!("Seal size: {:.2} KB", seal.len() as f64 / 1024.0);
+    
     // // Extract the journal from the receipt.
     let journal = receipt.receipt.journal.bytes.clone();
 
