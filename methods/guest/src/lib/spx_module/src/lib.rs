@@ -74,7 +74,7 @@
 //!
 #![no_std]
 #![allow(incomplete_features)]
-#![feature(generic_const_exprs)]
+#![feature(generic_const_exprs)] //rustup override set nightly
 // Require one from each category
 #![cfg(all(
     any(feature = "sm3"),
