@@ -21,3 +21,11 @@ target/debug/
 .DS_Store
 .idea
 
+#VScode
+.vscode
+
+#Node
+node_modules/
+package-lock.json
+
+
