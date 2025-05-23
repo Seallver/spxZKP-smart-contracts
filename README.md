@@ -123,6 +123,9 @@ cd MutipleWallet_frontend/ZKVM
 
 npm run dev #开启前端服务
 
-node src/backend/server.js #开启后端服务
+#开启后端服务
+node src/backend/server.js 
+
+node src/backend/zkpbackend
 ```
 
