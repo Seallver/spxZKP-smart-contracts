@@ -23,3 +23,8 @@ base64 = "0.22.1"
 [[bin]]
 name = "publisher"
 test = false
+
+[[bin]]
+name = "zkGen"
+test = false
+path = "src/bin/zkGen.rs" 

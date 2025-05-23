@@ -48,8 +48,6 @@ mod tests {
         pk_sm.extend_from_slice(&pk);
         pk_sm.extend_from_slice(&sm);
 
-
-
         let send = <sol! { bytes }>::abi_encode(&pk_sm);
 
         let env = ExecutorEnv::builder()
@@ -79,8 +77,6 @@ mod tests {
         let mut pk_sm = Vec::new();
         pk_sm.extend_from_slice(&pk);
         pk_sm.extend_from_slice(&sm);
-
-
 
         let send = <sol! { bytes }>::abi_encode(&pk_sm);
 
@@ -113,8 +109,6 @@ mod tests {
         pk_sm.extend_from_slice(&pk);
         pk_sm.extend_from_slice(&sm);
 
-
-
         let send = <sol! { bytes }>::abi_encode(&pk_sm);
 
         let env = ExecutorEnv::builder()
@@ -129,6 +123,5 @@ mod tests {
         //这里要注意，修改签名后，验证结果应该是false
         assert_eq!(x, false);
     }
-
 
 }

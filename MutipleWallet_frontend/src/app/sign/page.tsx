@@ -219,72 +219,72 @@ function SignPage() {
 
       <MyButton
         onClick={() => setShowScanner(true)}
-        bgColor="#10b981" // emerald-500
-        hoverColor="#059669"
+        bgColor=" #10b981" // emerald-500
+        hoverColor=" #059669"
       >
         📷 扫码获取 Shard
       </MyButton>
 
       <MyButton
         onClick={() => setsubmitTransaction(true)}
-        bgColor="#3b82f6" // blue-500
-        hoverColor="#2563eb"
+        bgColor=" #3b82f6" // blue-500
+        hoverColor=" #2563eb"
       >
         📩 提交 Transaction
       </MyButton>
 
       <MyButton
         onClick={callShowTransaction}
-        bgColor="#6366f1" // indigo-500
-        hoverColor="#4f46e5"
+        bgColor=" #6366f1" // indigo-500
+        hoverColor=" #4f46e5"
       >
         🔢 读取待签交易
       </MyButton>
 
       <MyButton
         onClick={fetchShardList}
-        bgColor="#8b5cf6" // violet-500
-        hoverColor="#7c3aed"
+        bgColor=" #8b5cf6" // violet-500
+        hoverColor=" #7c3aed"
       >
         📋 查看已上传的 Shard
       </MyButton>
 
       <MyButton
         onClick={request_sign}
-        bgColor="#f59e0b" // yellow-500
-        hoverColor="#d97706"
+        bgColor=" #f59e0b" // yellow-500
+        hoverColor=" #d97706"
       >
         🚀 生成签名
       </MyButton>
 
       <MyButton
         onClick={callDownloadSig}
-        bgColor="#38bdf8" // sky-400
-        hoverColor="#0ea5e9"
+        bgColor=" #38bdf8" // sky-400
+        hoverColor=" #0ea5e9"
       >
         📑 下载当前签名
       </MyButton>
 
       <MyButton
         onClick={handleFileSelect}
-        bgColor="#14b8a6" // teal-500
-        hoverColor="#0d9488"
+        bgColor=" #14b8a6" // teal-500
+        hoverColor=" #0d9488"
       >
         📁 上传签名 JSON 文件验证
       </MyButton>
 
       <MyButton
         onClick={reset}
-        bgColor="#ef4444" // red-500
-        hoverColor="#b91c1c"
+        bgColor=" #ef4444" // red-500
+        hoverColor=" #b91c1c"
       >
         🗑 清除所有参数
       </MyButton>
 
       <MyButton
         onClick={() => router.back()}
-        bgColor="#9ca3af" // gray-400
-        hoverColor="#6b7280"
+        bgColor=" #9ca3af" // gray-400
+        hoverColor=" #6b7280"
       >
         🔙 返回上一级
       </MyButton>

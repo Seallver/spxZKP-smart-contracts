@@ -8,9 +8,12 @@ const StructType = require("ref-struct-di")(ref);
 const app = express();
 app.use(express.json());
 const cors = require("cors");
-const { sign } = require("crypto");
-const { Console } = require("console");
-app.use(cors());
+//只允许 3000 跨源访问
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  }),
+);
 
 counter = 0;
 

@@ -75,7 +75,7 @@ forge script --rpc-url http://localhost:8545 --broadcast script/Deploy.s.sol
 ```
 得到合约部署的地址后执行
 ```bash
-export SPX_VRFY_ADDRESS=#COPY SpxVrfy ADDRESS FROM DEPLOY LOGS
+export SPX_VRFY_ADDRESS=0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 #COPY SpxVrfy ADDRESS FROM DEPLOY LOGS
 ```
 #### 与合约交互
 call isValidZKProof，检查验证初始状态
@@ -102,3 +102,27 @@ cast call --rpc-url http://localhost:8545 ${SPX_VRFY_ADDRESS:?} 'get()(bool)'
 - 本项目只针对 f128 参数集和 simple 结构下的基于 SM3 的 SPX 签名进行了实现
 - 测试和合约部署均需要签名和公钥，在项目里提供了一组[sig.json](./sig.json)，可以在[SPX TSS](https://github.com/Seallver/SphincsplusSM3-TSS)里生成
 - 测试均需要准备docker或者Bonsai api
+
+
+# 与 spxt-cold-wallet 项目结合应用
+
+这里给出在anvil上的测试
+
+### 1. 把 zkGen 编译成 Rust CLI，提供接口给后端
+```bash
+cargo build --release
+
+cp ./target/release/zkGen ./MutipleWallet_frontend/src/backend/
+```
+
+### 2. 开启测试网 anvil，详见使用示例
+
+### 3. 开启前后端服务作为冷钱包的聚合服务器
+```bash 
+cd MutipleWallet_frontend/ZKVM
+
+npm run dev #开启前端服务
+
+node src/backend/server.js #开启后端服务
+```
+

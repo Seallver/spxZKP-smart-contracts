@@ -1,5 +1,6 @@
 {
   "/page": "app/page.js",
   "/dkg/page": "app/dkg/page.js",
+  "/zkcheck/page": "app/zkcheck/page.js",
   "/sign/page": "app/sign/page.js"
 }

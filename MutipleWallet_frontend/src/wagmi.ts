@@ -6,6 +6,7 @@ import {
   optimism,
   polygon,
   sepolia,
+  anvil,
 } from "viem/chains";
 import { http } from "viem";
 
@@ -22,6 +23,7 @@ export const config = getDefaultConfig({
     optimism,
     arbitrum,
     base,
+    anvil,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
   ],
   ssr: true,
@@ -32,5 +34,6 @@ export const config = getDefaultConfig({
     [arbitrum.id]: http(),
     [base.id]: http(),
     [sepolia.id]: http(sepoliaUrl),
+    [anvil.id]: http(), // ✅ 指定本地RPC
   },
 });

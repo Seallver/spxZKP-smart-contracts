@@ -16,6 +16,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/dkg/page.js"
     ],
+    "/zkcheck/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/zkcheck/page.js"
+    ],
     "/sign/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
