@@ -1,22 +1,25 @@
 # SPX 验证算法的 ZKP 生成及其在智能合约上的应用
 
-# SPX 多钱冷钱包服务器端
+# ( SPX 多钱冷钱包服务器端 )
 
 ## 项目概述
 
 本项目整合了 [SPX-TSS](https://github.com/Seallver/SphincsplusSM3-TSS) 和 [SPX-ZKP](https://github.com/Seallver/spxZKP) 两个核心组件，基于 [RISC Zero zkVM](https://github.com/risc0/risc0-foundry-template) 框架，构建了一套完整的 SPX 签名验证零知识证明方案，并实现了智能合约端的链上验证功能。
+
+此外基于本项目实现了SPX多钱冷钱包项目的服务器端
 
 ## 核心组件
 
 | 组件 | 功能描述 | 项目链接 |
 |------|----------|----------|
 | **SPX-TSS** | 基于 SM3 的 SPHINCS+ 门限签名方案实现 | [GitHub](https://github.com/Seallver/SphincsplusSM3-TSS) |
-| **SPX-ZKP** | SPX 签名验证的零知识证明电路实现 | [GitHub](https://github.com/Seallver/spxZKP) |
+| **SPX-ZKP** | SPX 源码 Rust 实现与 ZKP 生成 | [GitHub](https://github.com/Seallver/spxZKP) |
 | **RISC Zero zkVM** | 零知识证明虚拟机执行环境 | [GitHub](https://github.com/risc0/risc0-foundry-template) |
+| **SPX-Cold-Wallet** | 基于SPX-TSS的安卓端冷钱包app |[GitHub](https://github.com/Seallver/spxt_cold_wallet) |
 
 ## 技术亮点
 
-- **后量子安全**：基于 SPHINCS+ 签名方案，抵抗量子计算攻击
+- **后量子安全**：基于 SPHINCS+ 签名方案，签名本身抵抗量子计算攻击
 - **零知识验证**：将复杂的签名验证计算转移到链下 zkVM 执行
 - **高效链上验证**：智能合约仅需验证简洁的零知识证明
 
@@ -106,7 +109,7 @@ cast call --rpc-url http://localhost:8545 ${SPX_VRFY_ADDRESS:?} 'get()(bool)'
 - 测试均需要准备docker或者Bonsai api
 
 
-# 与 spxt-cold-wallet 项目结合应用
+# 作为服务器前端与 spxt-cold-wallet 项目结合应用
 
 这里给出在anvil上的测试
 
@@ -123,11 +126,10 @@ cp ./target/release/zkGen ./MutipleWallet_frontend/src/backend/
 ```bash 
 cd MutipleWallet_frontend/ZKVM
 
-npm run dev #开启前端服务
+npm run dev #开启前端服务，此时可通过localhost:3000访问
 
 #开启后端服务
 node src/backend/server.js 
 
 node src/backend/zkpbackend
 ```
-
