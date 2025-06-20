@@ -6,7 +6,7 @@
 
 本项目整合了 [SPX-TSS](https://github.com/Seallver/SphincsplusSM3-TSS) 和 [SPX-ZKP](https://github.com/Seallver/spxZKP) 两个核心组件，基于 [RISC Zero zkVM](https://github.com/risc0/risc0-foundry-template) 框架，构建了一套完整的 SPX 签名验证零知识证明方案，并实现了智能合约端的链上验证功能。
 
-此外基于本项目实现了SPX多钱冷钱包项目的服务器端
+此外基于本项目实现了SPX多钱冷钱包项目的服务器端，冷钱包安装包apk已给出，在./wallet_apk中提供
 
 ## 核心组件
 
@@ -15,7 +15,7 @@
 | **SPX-TSS** | 基于 SM3 的 SPHINCS+ 门限签名方案实现 | [GitHub](https://github.com/Seallver/SphincsplusSM3-TSS) |
 | **SPX-ZKP** | SPX 源码 Rust 实现与 ZKP 生成 | [GitHub](https://github.com/Seallver/spxZKP) |
 | **RISC Zero zkVM** | 零知识证明虚拟机执行环境 | [GitHub](https://github.com/risc0/risc0-foundry-template) |
-| **SPX-Cold-Wallet** | 基于SPX-TSS的安卓端冷钱包app |[GitHub](https://github.com/Seallver/spxt_cold_wallet) |
+| **SPX-Cold-Wallet** | 基于SPX-TSS的安卓端冷钱包app实现源码 |[GitHub](https://github.com/Seallver/spxt_cold_wallet) |
 
 ## 技术亮点
 
