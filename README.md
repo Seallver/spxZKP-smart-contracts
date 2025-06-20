@@ -19,7 +19,7 @@
 
 ## 技术亮点
 
-- **后量子安全**：基于 SPHINCS+ 签名方案，签名本身抵抗量子计算攻击
+- **与冷钱包交互**：提供了前端，负责与手机端冷钱包交互
 - **零知识验证**：将复杂的签名验证计算转移到链下 zkVM 执行
 - **高效链上验证**：智能合约仅需验证简洁的零知识证明
 
@@ -113,14 +113,14 @@ cast call --rpc-url http://localhost:8545 ${SPX_VRFY_ADDRESS:?} 'get()(bool)'
 
 这里给出在anvil上的测试
 
-### 1. 把 zkGen 编译成 Rust CLI，提供接口给后端
+### 1. 把 zkGen 编译成 Rust CLI，提供接口给后端（项目本身已完成）
 ```bash
 cargo build --bin zkGen --release
 
 cp ./target/release/zkGen ./MutipleWallet_frontend/src/backend/
 ```
 
-### 2. 开启测试网 anvil，详见上述[使用示例中第5步](#5-本地测试网anvil下合约部署)
+### 2. 开启测试网 anvil，详见上述[使用示例中第5步](#5-本地测试网anvil下合约部署)“与合约交互”之前的步骤
 
 ### 3. 开启前后端服务作为冷钱包的聚合服务器
 ```bash 
