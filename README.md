@@ -133,3 +133,5 @@ node src/backend/server.js
 
 node src/backend/zkpbackend
 ```
+在前端中，登录到钱包，添加 RPC：127.0.0.1:8545 连接到本地anvil测试网络
+
