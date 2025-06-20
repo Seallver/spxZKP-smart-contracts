@@ -12,7 +12,7 @@
 | 组件 | 功能描述 | 项目链接 |
 |------|----------|----------|
 | **SPX-TSS** | 基于 SM3 的 SPHINCS+ 门限签名方案实现 | [GitHub](https://github.com/Seallver/SphincsplusSM3-TSS) |
-| **SPX-ZKP** | SPX 源码 Rust 实现与 ZKP 生成 | [GitHub](https://github.com/Seallver/spxZKP) |
+| **SPX-ZKP** | SPX 源码 Rust 实现与 ZKP 简单生成 | [GitHub](https://github.com/Seallver/spxZKP) |
 | **RISC Zero zkVM** | 零知识证明虚拟机执行环境 | [GitHub](https://github.com/risc0/risc0-foundry-template) |
 | **SPX-Cold-Wallet** | 基于SPX-TSS的安卓端冷钱包app实现源码 |[GitHub](https://github.com/Seallver/spxt_cold_wallet) |
 
