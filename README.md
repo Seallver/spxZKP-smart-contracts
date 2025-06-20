@@ -1,5 +1,7 @@
 # SPX 验证算法的 ZKP 生成及其在智能合约上的应用
 
+# SPX 多钱冷钱包服务器端
+
 ## 项目概述
 
 本项目整合了 [SPX-TSS](https://github.com/Seallver/SphincsplusSM3-TSS) 和 [SPX-ZKP](https://github.com/Seallver/spxZKP) 两个核心组件，基于 [RISC Zero zkVM](https://github.com/risc0/risc0-foundry-template) 框架，构建了一套完整的 SPX 签名验证零知识证明方案，并实现了智能合约端的链上验证功能。
