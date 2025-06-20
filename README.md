@@ -120,7 +120,7 @@ cargo build --bin zkGen --release
 cp ./target/release/zkGen ./MutipleWallet_frontend/src/backend/
 ```
 
-### 2. 开启测试网 anvil，详见上述[使用示例中第5步](### 5. 本地测试网anvil下合约部署)
+### 2. 开启测试网 anvil，详见上述[使用示例中第5步](# 5. 本地测试网anvil下合约部署)
 
 ### 3. 开启前后端服务作为冷钱包的聚合服务器
 ```bash 
