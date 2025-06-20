@@ -59,26 +59,26 @@ function HomePage() {
       >
         <MyButton
           onClick={() => router.push("/dkg")}
-          bgColor=" #2563eb"
-          hoverColor=" #4f46e5"
+          bgColor="rgb(3, 83, 254)"
+          hoverColor="rgb(170, 0, 255)"
         >
           🔐 进入 DKG 功能页
         </MyButton>
 
         <MyButton
           onClick={() => router.push("/sign")}
-          bgColor=" #f59e0b" // gray-400
-          hoverColor=" #ef4444"
+          bgColor="rgb(255, 162, 0)" // gray-400
+          hoverColor="rgb(237, 73, 73)"
         >
-          🖋 进入签名功能页
+          🖋️ 进入签名功能页
         </MyButton>
 
         <MyButton
           onClick={() => router.push("/zkcheck")}
-          bgColor=" #10b981" // gray-400
-          hoverColor=" #14b8a6"
+          bgColor="rgb(0, 255, 170)" // gray-400
+          hoverColor="rgb(8, 167, 154)"
         >
-          🔍 进入交易提交页
+          🔍 进入 ZK 功能页
         </MyButton>
       </div>
     </div>
@@ -137,3 +137,5 @@ function MyButton({ onClick, children, bgColor, hoverColor }: MyButtonProps) {
     </button>
   );
 }
+
+// npx prettier --write ./src/

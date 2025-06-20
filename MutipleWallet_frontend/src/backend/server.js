@@ -8,10 +8,11 @@ const StructType = require("ref-struct-di")(ref);
 const app = express();
 app.use(express.json());
 const cors = require("cors");
-//只允许 3000 跨源访问
+//只允许 localhost:3000 跨源访问
 app.use(
   cors({
     origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
   }),
 );
 

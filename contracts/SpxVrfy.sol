@@ -47,7 +47,7 @@ contract SpxVrfy {
 
     function set(bytes calldata seal) public {
         // journal 只需要匹配 guest 中 commit 的 bool 值（true/false）
-        bytes memory journal = abi.encode(true); // guest commit 的是 `true` 当且仅当验签成功
+        bytes memory journal = abi.encode(0); // guest commit 的是 `true` 当且仅当验签成功
         try verifier.verify(seal, imageId, sha256(journal)) {
             isValidZKProof = true;
             check = 1;

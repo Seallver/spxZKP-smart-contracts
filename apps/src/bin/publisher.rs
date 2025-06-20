@@ -119,7 +119,7 @@ fn main() -> Result<()> {
     // // Decode Journal: Upon receiving the proof, the application decodes the journal to extract
     // // the verified number. This ensures that the number being submitted to the blockchain matches
     // // the number that was verified off-chain.
-    let verified: bool = bool::abi_decode(&journal, true).context("decoding journal")?;
+    let verified: i32 = i32::abi_decode(&journal, true).context("decoding journal")?;
     
     println!("Signature verified: {}", verified);
 

@@ -13,11 +13,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 node src/backend/server.js
 ```
 
-格式化js代码
-```bash
-npx prettier --write ./src/
-```
-
 
 ## Learn More
 

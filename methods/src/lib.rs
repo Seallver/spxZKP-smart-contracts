@@ -31,7 +31,7 @@ mod tests {
         Sig: String, // Base64 编码的签名
     }
 
-    type BoolSol = sol! { bool };
+    type Int32Sol = sol! { int32 };
 
     #[test]
     fn proves_sig_is_valid() {
@@ -57,9 +57,9 @@ mod tests {
 
         // NOTE: Use the executor to run tests without proving.
         let session_info = default_executor().execute(env, super::SPXVRFY_ELF).unwrap();
-        let x: bool = BoolSol::abi_decode(&session_info.journal.bytes, true).unwrap();
+        let x: i32 = Int32Sol::abi_decode(&session_info.journal.bytes, true).unwrap();
 
-        assert_eq!(x, true);
+        assert_eq!(x, 0);
     }
 
     #[test]
@@ -87,10 +87,9 @@ mod tests {
 
         // NOTE: Use the executor to run tests without proving.
         let session_info = default_executor().execute(env, super::SPXVRFY_ELF).unwrap();
-        let x: bool = BoolSol::abi_decode(&session_info.journal.bytes, true).unwrap();
+        let x: i32 = Int32Sol::abi_decode(&session_info.journal.bytes, true).unwrap();
 
-        //这里要注意，修改签名后，验证结果应该是false
-        assert_eq!(x, false);
+        assert_eq!(x, -1);
     }
 
     #[test]
@@ -118,10 +117,9 @@ mod tests {
 
         // NOTE: Use the executor to run tests without proving.
         let session_info = default_executor().execute(env, super::SPXVRFY_ELF).unwrap();
-        let x: bool = BoolSol::abi_decode(&session_info.journal.bytes, true).unwrap();
+        let x: i32 = Int32Sol::abi_decode(&session_info.journal.bytes, true).unwrap();
 
-        //这里要注意，修改签名后，验证结果应该是false
-        assert_eq!(x, false);
+        assert_eq!(x, -1);
     }
 
 }

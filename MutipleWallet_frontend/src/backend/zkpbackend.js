@@ -10,6 +10,7 @@ const app = express(); // 初始化 Express 应用
 app.use(
   cors({
     origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
   }),
 );
 
@@ -32,6 +33,7 @@ app.post("/api/zkverify", upload.single("sigfile"), async (req, res) => {
     const uploadedPath = req.file.path; // uploads/xxxxxx
     const binaryPath = path.resolve(__dirname, "zkGen");
 
+    console.log("ZK 生成中...");
     // 调用 ZK 程序
     const result = spawnSync(binaryPath, ["--sig", uploadedPath]);
 
@@ -51,13 +53,13 @@ app.post("/api/zkverify", upload.single("sigfile"), async (req, res) => {
     }
 
     // 成功返回
+    console.log("ZK 生成成功");
     return res.json({ status: "success" });
   } catch (err) {
     console.error("服务错误:", err);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 app.get("/api/download-seal", (req, res) => {
   if (!fs.existsSync(sealPath)) {

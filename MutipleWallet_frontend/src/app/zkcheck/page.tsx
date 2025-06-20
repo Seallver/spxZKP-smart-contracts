@@ -7,7 +7,7 @@ import { SpxVrfyAbi } from "../../constants/spxVrfy";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
-import { toHex } from 'viem';
+import { toHex } from "viem";
 
 import React from "react";
 
@@ -72,39 +72,38 @@ export default function ZkCheckPage() {
     }
   };
 
-const zkhandleFileChange = async () => {
-  const fileInput = zkbinfileInputRef.current;
-  const file = fileInput?.files?.[0];
+  const zkhandleFileChange = async () => {
+    const fileInput = zkbinfileInputRef.current;
+    const file = fileInput?.files?.[0];
 
-  if (!file) {
-    alert("请先选择 seal.bin 文件！");
-    return;
-  }
-
-  const arrayBuffer = await file.arrayBuffer();
-  const sealBytes = new Uint8Array(arrayBuffer); // 注意是 Uint8Array
-
-  const hexSeal = toHex(sealBytes);
-
-  try {
-    const tx = await writeContractAsync({
-      address: SPX_VRFY_ADDRESS,
-      abi: SpxVrfyAbi,
-      functionName: "set",
-      args: [hexSeal],
-    });
-
-    alert("✅ 交易确认成功！");
-  } catch (err: any) {
-    console.error(err);
-    alert(`调用失败: ${err.message}`);
-  } finally {
-    if (fileInput) {
-      fileInput.value = ""; // 清空文件选择
+    if (!file) {
+      alert("请先选择 seal.bin 文件！");
+      return;
     }
-  }
-};
 
+    const arrayBuffer = await file.arrayBuffer();
+    const sealBytes = new Uint8Array(arrayBuffer); // 注意是 Uint8Array
+
+    const hexSeal = toHex(sealBytes);
+
+    try {
+      const tx = await writeContractAsync({
+        address: SPX_VRFY_ADDRESS,
+        abi: SpxVrfyAbi,
+        functionName: "set",
+        args: [hexSeal],
+      });
+
+      alert("✅ 交易确认成功！");
+    } catch (err: any) {
+      console.error(err);
+      alert(`调用失败: ${err.message}`);
+    } finally {
+      if (fileInput) {
+        fileInput.value = ""; // 清空文件选择
+      }
+    }
+  };
 
   return (
     <div
@@ -155,7 +154,7 @@ const zkhandleFileChange = async () => {
         type="file"
         accept=".json"
         ref={sigjsonfileInputRef}
-        style={{ display: "none" }} 
+        style={{ display: "none" }}
         onChange={sighandleFileChange}
       />
       <MyButton

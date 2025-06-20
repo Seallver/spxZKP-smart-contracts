@@ -41,9 +41,9 @@ contract spxVrfyTest is RiscZeroCheats, Test {
         // 调用 zkVM guest 执行签名验证
         (bytes memory journal, bytes memory seal) = prove(Elf.SPXVRFY_PATH, abi.encode(input));
 
-        // 解析 journal 获取 guest 输出的 bool 值
-        bool isValid = abi.decode(journal, (bool));
-        assertTrue(isValid);
+        // 解析 journal 获取 guest 输出的 res 值
+        int32 res = abi.decode(journal, (int32));
+        assertEq(res, 0);
 
         spxVrfy.set(seal);
 

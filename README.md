@@ -112,7 +112,7 @@ cast call --rpc-url http://localhost:8545 ${SPX_VRFY_ADDRESS:?} 'get()(bool)'
 
 ### 1. 把 zkGen 编译成 Rust CLI，提供接口给后端
 ```bash
-cargo build --release
+cargo build --bin zkGen --release
 
 cp ./target/release/zkGen ./MutipleWallet_frontend/src/backend/
 ```

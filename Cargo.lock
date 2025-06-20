@@ -843,6 +843,7 @@ dependencies = [
  "alloy-sol-types",
  "anyhow",
  "base64",
+ "bytemuck",
  "clap",
  "env_logger",
  "log",

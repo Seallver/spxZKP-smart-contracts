@@ -11,7 +11,8 @@ function DKGPage() {
   const [showScanner, setShowScanner] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [publicKey, setPublicKey] = useState<string | null>(null);
-  const [skList, setSkList] = useState<string[]>([]);
+  const [skList, setSkList] = useState([]);
+  const [showSkModal, setShowSkModal] = useState(false);
   const router = useRouter();
 
   async function callGenPrime() {
@@ -118,6 +119,7 @@ function DKGPage() {
       const data = await res.json();
       if (data.status === "success") {
         setSkList(data.bsk);
+        setShowSkModal(true); // 打开弹窗
       } else {
         alert("获取失败：" + data.msg);
       }
@@ -154,82 +156,88 @@ function DKGPage() {
     >
       <h1 style={{ fontSize: 28, marginBottom: 40 }}>DKG</h1>
 
-      <MainButton
-        onClick={() => setShowScanner(true)}
-        bgColor="#10b981" // emerald-500
-        hoverColor="#059669"
-      >
-        📷 扫码获取 BSK
-      </MainButton>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }}>
+        <Card title="Blind SK 操作" bgColor="rgb(255, 255, 255)">
+          <div style={{ display: "flex", flexDirection: "column", gap: 42 }}>
+            <CompositeButton
+              onClick={() => setShowScanner(true)}
+              bgColor=" #10b981"
+              hoverColor=" #059669"
+              leftContent="扫码获取 BSK"
+              rightContent="📷"
+            />
+            <CompositeButton
+              onClick={fetchSkList}
+              bgColor=" #8b5cf6"
+              hoverColor=" #7c3aed"
+              leftContent="查看已上传的 BSK"
+              rightContent="🔍"
+            />
+          </div>
+        </Card>
 
-      <MainButton
-        onClick={fetchSkList}
-        bgColor="#8b5cf6" // violet-500
-        hoverColor="#7c3aed"
-      >
-        📋 查看已上传的 BSK
-      </MainButton>
+        <Card title="素数生成" bgColor="rgb(255, 255, 255)">
+          <div style={{ display: "flex", flexDirection: "column", gap: 42 }}>
+            <CompositeButton
+              onClick={callGenPrime}
+              bgColor=" #3b82f6"
+              hoverColor=" #2563eb"
+              leftContent="生成素数"
+              rightContent="➕"
+            />
+            <CompositeButton
+              onClick={callShowPrime}
+              bgColor="#6366f1"
+              hoverColor="#4f46e5"
+              leftContent="查看当前素数"
+              rightContent="🔍"
+            />
+          </div>
+        </Card>
 
-      <MainButton
-        onClick={callGenPrime}
-        bgColor="#3b82f6" // blue-500
-        hoverColor="#2563eb"
-      >
-        📦 生成素数
-      </MainButton>
+        <Card title="生成与查看 PK" bgColor="rgb(255, 255, 255)">
+          <div style={{ display: "flex", flexDirection: "column", gap: 42 }}>
+            <CompositeButton
+              onClick={callDKG}
+              bgColor=" #f59e0b"
+              hoverColor=" #d97706"
+              leftContent="生成 PK"
+              rightContent="🚀"
+            />
+            <CompositeButton
+              onClick={callShowPK}
+              bgColor=" #2dd4bf"
+              hoverColor=" #14b8a6"
+              leftContent="查看 PK"
+              rightContent="🔑"
+            />
+          </div>
+        </Card>
 
-      <MainButton
-        onClick={callShowPrime}
-        bgColor="#6366f1" // indigo-500
-        hoverColor="#4f46e5"
+        <Card title="清理" bgColor="rgb(253, 255, 255)">
+          <div style={{ display: "flex", flexDirection: "column", gap: 42 }}>
+            <CompositeButton
+              onClick={cleanParams}
+              bgColor=" #ef4444"
+              hoverColor=" #b91c1c"
+              leftContent="清除所有参数"
+              rightContent="🗑️"
+            />
+          </div>
+        </Card>
+      </div>
+      {/* ✅ 新增：按钮容器，放在 grid 外部 */}
+      <div
+        style={{ marginTop: 120, display: "flex", justifyContent: "center" }}
       >
-        🔢 查看当前素数
-      </MainButton>
-
-      <MainButton
-        onClick={callDKG}
-        bgColor="#f59e0b" // yellow-500
-        hoverColor="#d97706"
-      >
-        🚀 生成 PK
-      </MainButton>
-
-      <MainButton
-        onClick={callShowPK}
-        bgColor="#2dd4bf" // teal-400
-        hoverColor="#14b8a6"
-      >
-        🔑 查看 PK
-      </MainButton>
-
-      <MainButton
-        onClick={cleanParams}
-        bgColor="#ef4444" // red-500
-        hoverColor="#b91c1c"
-      >
-        🗑 清除所有参数
-      </MainButton>
-
-      <MainButton
-        onClick={() => router.back()}
-        bgColor="#9ca3af" // gray-400
-        hoverColor="#6b7280"
-      >
-        🔙 返回上一级
-      </MainButton>
-
-      {skList.length > 0 && (
-        <div style={{ marginTop: 20 }}>
-          <h3>当前上传的 blind_sk 列表：</h3>
-          <ul>
-            {skList.map((sk, idx) => (
-              <li key={idx} style={{ wordBreak: "break-all" }}>
-                {sk}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        <CompositeButton
+          onClick={() => router.back()}
+          bgColor=" #9ca3af"
+          hoverColor=" #6b7280"
+          leftContent="返回上一级"
+          rightContent="⬅️"
+        />
+      </div>
 
       {/* 二维码弹窗 */}
       {showModal && qrData && (
@@ -292,32 +300,50 @@ function DKGPage() {
           </div>
         </div>
       )}
+
+      {showSkModal && (
+        <div style={modalOverlayStyle}>
+          <div style={modalStyle}>
+            <button
+              style={closeButtonStyle}
+              onClick={() => setShowSkModal(false)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.05)";
+                e.currentTarget.style.boxShadow =
+                  "0 10px 25px rgba(0, 0, 0, 0.2)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow =
+                  "0 8px 20px rgba(0, 0, 0, 0.15)";
+              }}
+            >
+              ❌
+            </button>
+            <h3>当前上传的 blind_sk 列表：</h3>
+            <ul
+              style={{
+                maxHeight: "300px",
+                overflowY: "auto",
+                textAlign: "left",
+                paddingLeft: 20,
+              }}
+            >
+              {skList.map((sk, idx) => (
+                <li
+                  key={idx}
+                  style={{ wordBreak: "break-all", marginBottom: 8 }}
+                >
+                  {sk}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-// 按钮样式封装，增加 hover 效果和动画
-const mainButtonStyle = (
-  startColor: string,
-  endColor: string,
-): React.CSSProperties => ({
-  width: 500,
-  height: 60,
-  fontSize: 20,
-  fontWeight: 600,
-  color: "#fff",
-  background: `linear-gradient(90deg, ${startColor}, ${endColor})`,
-  border: "none",
-  borderRadius: 14,
-  cursor: "pointer",
-  boxShadow: "0 6px 18px rgba(0, 0, 0, 0.12)",
-  marginBottom: 30,
-  transition: "transform 0.25s ease, box-shadow 0.25s ease",
-  textAlign: "center",
-  lineHeight: "60px",
-  userSelect: "none",
-  filter: "drop-shadow(0 2px 2px rgba(0,0,0,0.15))",
-});
 
 // 弹窗蒙版样式，增加模糊背景
 const modalOverlayStyle: React.CSSProperties = {
@@ -366,39 +392,105 @@ const closeButtonStyle: React.CSSProperties = {
 
 export default DKGPage;
 
-type BtnProps = {
-  onClick: () => void;
+type CardProps = {
+  title: string;
   children: React.ReactNode;
+  bgColor?: string; // 可选参数，默认背景色
+};
+
+function Card({ title, children, bgColor = " #fff" }: CardProps) {
+  return (
+    <div
+      style={{
+        backgroundColor: bgColor,
+        padding: "10px 32px 32px 32px", // 增加内边距
+        borderRadius: 16, // 圆角更大
+        boxShadow: "0 6px 20px rgba(0,0,0,0.12)", // 更明显的阴影
+        display: "flex",
+        flexDirection: "column",
+        gap: 32, // 元素间距更大
+        width: "90%", // 或者指定为具体宽度，如 600
+        maxWidth: 900, // 设置最大宽度
+        margin: "0 auto", // 居中
+      }}
+    >
+      <h2
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginBottom: 8,
+          color: " rgb(0, 0, 0)",
+        }}
+      >
+        {title}
+      </h2>
+      {children}
+      <div style={{ marginBottom: 2 }} /> {/* 按钮组外层增加底部间距 */}
+    </div>
+  );
+}
+
+type CompositeButtonProps = {
+  onClick: () => void;
+  leftContent: React.ReactNode; // 左侧文字+emoji
+  rightContent: React.ReactNode; // 右侧白色图标块
   bgColor: string;
   hoverColor: string;
 };
 
-export function MainButton({
+export function CompositeButton({
   onClick,
-  children,
+  leftContent,
+  rightContent,
   bgColor,
   hoverColor,
-}: BtnProps) {
+}: CompositeButtonProps) {
   const [hover, setHover] = useState(false);
 
-  const style = {
-    ...mainButtonStyle(bgColor, hoverColor),
-    transform: hover ? "scale(1.05)" : "scale(1)",
+  const buttonStyle: React.CSSProperties = {
+    display: "flex",
+    width: 500,
+    height: 60,
+    borderRadius: 14,
+    overflow: "hidden", // 保证右边块圆角不突出
+    background: `linear-gradient(90deg, ${bgColor}, ${hoverColor})`,
     boxShadow: hover
-      ? "0 10px 25px rgba(0, 0, 0, 0.2)"
-      : "0 8px 20px rgba(0, 0, 0, 0.15)",
+      ? "0 12px 35px rgba(0, 0, 0, 0.3)"
+      : "0 10px 30px rgba(0, 0, 0, 0.2)",
+    transform: hover ? "scale(1.05)" : "scale(1)",
     transition: "all 0.2s ease",
     cursor: "pointer",
+    userSelect: "none",
+  };
+
+  const leftStyle: React.CSSProperties = {
+    flex: 7,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: 600,
+  };
+
+  const rightStyle: React.CSSProperties = {
+    flex: 3,
+    backgroundColor: "#ffffff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 22,
   };
 
   return (
-    <button
+    <div
+      style={buttonStyle}
       onClick={onClick}
-      style={style}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {children}
-    </button>
+      <div style={leftStyle}>{leftContent}</div>
+      <div style={rightStyle}>{rightContent}</div>
+    </div>
   );
 }
